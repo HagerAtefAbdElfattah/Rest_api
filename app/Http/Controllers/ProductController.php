@@ -27,30 +27,46 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name'   =>'required',
+            'detail' => 'required|string|max:255',
+        ]);
+
+        $product = product::create($data);
+
+        return $product;
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(product $product)
     {
-        //
+        return $product;
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, product $product)
     {
-        //
+        $data = $request->validate([
+            'name'   => 'required',
+            'detail' => 'required|string|max:255',
+        ]);
+
+        $product->update($data);
+
+        return $product;
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(product $product)
     {
-        //
+        $product->delete();
+
+        return 'the product has been deleted successfully';
     }
 }
