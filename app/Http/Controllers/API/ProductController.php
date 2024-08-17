@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
-use App\Http\Resources\ProductResource;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\product;
+use App\Http\Resources\ProductResource;
 
 class ProductController extends Controller
 {
@@ -17,8 +18,8 @@ class ProductController extends Controller
 
         if ($product->count() > 0) {
             return ProductResource::collection($product);
-        }else {
-            return response()->json(['message'=>'No record available'], 200);
+        } else {
+            return response()->json(['message' => 'No record available'], 200);
         }
     }
 
@@ -28,7 +29,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name'   =>'required',
+            'name'   => 'required',
             'detail' => 'required|string|max:255',
         ]);
 
